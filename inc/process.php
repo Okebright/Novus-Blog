@@ -39,5 +39,31 @@ if (isset($_POST['register'])) {
 
 //LOGIN PROCESS
 
+if (isset($_POST['login'])) {
+   
+    // Process login logic here
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
+    // Add your login logic here
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $query = mysqli_query($conn, $sql);
+    $user = mysqli_fetch_assoc($query);
+
+    if ($user && password_verify($password, $user['password'])) {
+        // Login successful
+        session_start();
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_name'] = $user['name'];
+        $_SESSION['user_email'] = $user['email'];
+        header("Location: /novusblog/dashboard.php");
+        $success = "Login successful. Redirecting to dashboard...";
+        exit();
+    } else {
+        // Show error message for invalid credentials
+        $error = "Invalid email or password. Please try again.";
+    // }
+}
+
+}
 ?>
