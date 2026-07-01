@@ -1,5 +1,4 @@
 <?php
-require 'pages/header_homepage.php';
 ?>
 
 <header class="home-hero">
@@ -38,16 +37,25 @@ require 'pages/header_homepage.php';
 
     <div class="post-grid">
       <article class="post-card">
+        <div class="post-image">
+          <img src="https://via.placeholder.com/360x200?text=Featured" alt="Featured post image">
+        </div>
         <span class="post-tag">Writing</span>
         <h3>Build a modern blog that readers love</h3>
         <p>Practical steps for designing, publishing, and promoting rich content in 2026.</p>
       </article>
       <article class="post-card">
+        <div class="post-image">
+          <img src="https://via.placeholder.com/360x200?text=Featured" alt="Featured post image">
+        </div>
         <span class="post-tag">Strategy</span>
         <h3>Plan content with consistency and clarity</h3>
         <p>Use a simple editorial workflow to keep ideas fresh and publishing on schedule.</p>
       </article>
       <article class="post-card">
+        <div class="post-image">
+          <img src="https://via.placeholder.com/360x200?text=Featured" alt="Featured post image">
+        </div>
         <span class="post-tag">Growth</span>
         <h3>Convert readers into subscribers</h3>
         <p>Optimize your blog with smart calls to action, categories, and user engagement.</p>
@@ -103,6 +111,3 @@ require 'pages/header_homepage.php';
   </section>
 </main>
 
-<?php
-require 'pages/footer_all.php';
-?>

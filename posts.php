@@ -24,7 +24,11 @@ require 'inc/header.php';
             <tbody>
               <tr>
                 <td>1</td>
-                <td class="post-thumb-cell">Post thumbnail</td>
+                <td class="post-thumb-cell">
+                  <div class="post-thumb">
+                    <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
+                  </div>
+                </td>
                 <td>
                   <div class="post-title">How to Build a Modern Blog</div>
                   <div class="post-sub">Published on 12 Jun</div>
@@ -34,7 +38,11 @@ require 'inc/header.php';
               </tr>
               <tr>
                 <td>2</td>
-                <td class="post-thumb-cell">Post thumbnail</td>
+                <td class="post-thumb-cell">
+                  <div class="post-thumb">
+                    <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
+                  </div>
+                </td>
                 <td>
                   <div class="post-title">Tips for Better Content Writing</div>
                   <div class="post-sub">Draft saved</div>
@@ -44,7 +52,11 @@ require 'inc/header.php';
               </tr>
               <tr>
                 <td>3</td>
-                <td class="post-thumb-cell">Post thumbnail</td>
+                <td class="post-thumb-cell">
+                  <div class="post-thumb">
+                    <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
+                  </div>
+                </td>
                 <td>
                   <div class="post-title">The Future of Web Development</div>
                   <div class="post-sub">Scheduled for 20 Jun</div>
