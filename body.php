@@ -1,113 +1,173 @@
-<?php
-?>
-
 <header class="home-hero">
-  <div class="hero-copy">
-    <span class="eyebrow">Novus Blog</span>
-    <h1>Ideas, tutorials, and stories for modern creators.</h1>
-    <p>Explore blog growth, writing best practices, and fresh content strategy guidance crafted for developers, authors, and digital publishers.</p>
-    <div class="hero-actions">
-      <a href="dashboard.php" class="btn-outline">Go to Dashboard</a>
-      <a href="#latest" class="btn-primary">Browse Posts</a>
-    </div>
-  </div>
-
-  <div class="hero-features">
-    <article class="feature-card">
-      <h3>Latest news</h3>
-      <p>See what’s new in the blog admin and find inspiration for your next post.</p>
-    </article>
-    <article class="feature-card">
-      <h3>Content tools</h3>
-      <p>Manage categories, comments, and users from a modern dashboard experience.</p>
-    </article>
-    <article class="feature-card">
-      <h3>Performance tips</h3>
-      <p>Learn how to publish faster, engage readers, and grow your audience.</p>
-    </article>
+  <div class="hero-minimal">
+    <h1>Thoughts worth sharing</h1>
+    <p>A simple, elegant platform for writers and creators</p>
+    <a href="#featured" class="hero-cta">Read Latest →</a>
   </div>
 </header>
 
 <main class="home-main">
-  <section id="latest" class="home-section">
-    <div class="section-heading">
-      <h2>Featured Posts</h2>
-      <p>Hand-picked posts from the Novus Blog editorial team.</p>
+  <!-- Featured Section -->
+  <!-- <section id="featured" class="featured-section">
+    <div class="section-intro">
+      <h2>Featured This Week</h2>
+      <p>Hand-picked stories and insights from our community</p>
     </div>
 
-    <div class="post-grid">
-      <article class="post-card">
-        <div class="post-image">
-          <img src="https://via.placeholder.com/360x200?text=Featured" alt="Featured post image">
+    <div class="featured-grid">
+      <article class="featured-post featured-large">
+        <div class="featured-image">
+          <img src="https://via.placeholder.com/600x400?text=Featured+1" alt="Featured article">
+          <span class="featured-badge">Featured</span>
         </div>
-        <span class="post-tag">Writing</span>
-        <h3>Build a modern blog that readers love</h3>
-        <p>Practical steps for designing, publishing, and promoting rich content in 2026.</p>
-      </article>
-      <article class="post-card">
-        <div class="post-image">
-          <img src="https://via.placeholder.com/360x200?text=Featured" alt="Featured post image">
+        <div class="featured-content">
+          <div class="featured-meta">
+            <span class="category-badge writing">Writing</span>
+            <span class="read-time">8 min read</span>
+          </div>
+          <h3>The Art of Writing Compelling Blog Posts</h3>
+          <p>Master the craft of engaging your readers with powerful storytelling, clear messaging, and strategic calls to action. Learn from successful writers.</p>
+          <a href="#" class="featured-link">Read Article →</a>
         </div>
-        <span class="post-tag">Strategy</span>
-        <h3>Plan content with consistency and clarity</h3>
-        <p>Use a simple editorial workflow to keep ideas fresh and publishing on schedule.</p>
       </article>
-      <article class="post-card">
-        <div class="post-image">
-          <img src="https://via.placeholder.com/360x200?text=Featured" alt="Featured post image">
+
+      <article class="featured-post featured-small">
+        <div class="featured-image">
+          <img src="https://via.placeholder.com/400x250?text=Featured+2" alt="Featured article">
         </div>
-        <span class="post-tag">Growth</span>
-        <h3>Convert readers into subscribers</h3>
-        <p>Optimize your blog with smart calls to action, categories, and user engagement.</p>
+        <div class="featured-content">
+          <div class="featured-meta">
+            <span class="category-badge strategy">Strategy</span>
+            <span class="read-time">5 min</span>
+          </div>
+          <h3>Content Calendar Essentials</h3>
+          <a href="#" class="featured-link">Read →</a>
+        </div>
       </article>
-    </div>
-  </section>
 
-  <section id="categories" class="home-section">
-    <div class="section-heading">
-      <h2>Categories</h2>
-      <p>Browse the category topics powering Novus Blog articles.</p>
+      <article class="featured-post featured-small">
+        <div class="featured-image">
+          <img src="https://via.placeholder.com/400x250?text=Featured+3" alt="Featured article">
+        </div>
+        <div class="featured-content">
+          <div class="featured-meta">
+            <span class="category-badge growth">Growth</span>
+            <span class="read-time">6 min</span>
+          </div>
+          <h3>Growing Your Audience in 2026</h3>
+          <a href="#" class="featured-link">Read →</a>
+        </div>
+      </article>
     </div>
+  </section> -->
 
-    <div class="category-list">
-      <article class="category-card">
-        <h3>Technology</h3>
-        <p>Latest updates on web development, tools, and digital innovation.</p>
-      </article>
-      <article class="category-card">
-        <h3>Design</h3>
-        <p>Guides for clean UI, content layout, and storytelling through visuals.</p>
-      </article>
-      <article class="category-card">
-        <h3>Writing</h3>
-        <p>Practical advice for better posts, clearer messaging, and stronger headlines.</p>
-      </article>
-      <article class="category-card">
-        <h3>Marketing</h3>
-        <p>Strategies for growing readership, building an audience, and promotion.</p>
-      </article>
-    </div>
-  </section>
+  <!-- Main Content with Sidebar -->
+  <div class="content-layout">
+    <!-- Latest Posts -->
+    <section class="latest-posts">
+      <div class="posts-header">
+        <div>
+          <h2>Latest Articles</h2>
+          <p>Fresh content from our writers</p>
+        </div>
+        <a href="#" class="view-all-link">View All →</a>
+      </div>
 
-  <section class="home-section home-about">
-    <div>
-      <h2>Welcome to Novus</h2>
-      <p>Novus Blog is a clean, modern publishing platform for authors, developers, and content creators. Start your writing journey from the dashboard or explore curated posts on best practices and digital storytelling.</p>
-    </div>
-    <div class="about-cards">
-      <div class="about-card">
-        <h3>Write smarter</h3>
-        <p>Create compelling posts with structured categories, status tracking, and editorial clarity.</p>
+      <div class="posts-grid">
+
+
+      <?php for ($i = 1; $i<=6; $i++){?>
+     <article class="post-card">
+          <div class="post-image">
+            <img src="https://via.placeholder.com/400x220?text=Post+1" alt="Post">
+          </div>
+          <div class="post-body">
+            <div class="post-header">
+              <span class="post-cat">Technology</span>
+              <span class="post-date">Jun 15</span>
+            </div>
+            <h3><a href="#">Building Scalable Web Applications</a></h3>
+            <p>Best practices and architecture patterns for modern web development.</p>
+          </div>
+        </article>
+      <?php } ?>
+   
+
+      
+
+
+ 
       </div>
-      <div class="about-card">
-        <h3>Manage easily</h3>
-        <p>Control comments, categories, and users from a single admin hub built for simplicity.</p>
+
+      <div class="posts-cta">
+        <a href="#" class="btn-outline">Load More Articles</a>
       </div>
-      <div class="about-card">
-        <h3>Publish faster</h3>
-        <p>Keep your audience engaged with polished publishing tools and an intuitive workflow.</p>
+    </section>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- About Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <h3 class="widget-title">About Novus</h3>
+        </div>
+        <div class="widget-body">
+          <p>A modern publishing platform for creators, writers, and developers who want to share their ideas with the world.</p>
+        </div>
       </div>
-    </div>
-  </section>
+
+      <!-- Categories Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <h3 class="widget-title">Explore Topics</h3>
+        </div>
+        <div class="categories-list">
+        <?php 
+          for  ($i = 1; $i <= 5; $i++){?>
+              <a href="#" class="category-item">
+            <span class="cat-name">Technology</span>
+            <span class="cat-post-count">28</span>
+          </a>
+         <?php }
+        ?>
+
+         
+    
+        </div>
+      </div>
+
+      <!-- Popular Posts Widget -->
+      <div class="widget">
+        <div class="widget-header">
+          <h3 class="widget-title">Trending Now</h3>
+        </div>
+        <div class="trending-list">
+
+        <?php for ($i = 1; $i<=3; $i++){?>
+        <a href="#" class="trending-item">
+            <div class="trending-rank">1</div>
+            <div class="trending-info">
+              <h4>Building Modern Blogs</h4>
+              <span>2.4k views</span>
+            </div>
+          </a>
+     <?php   }        ?>
+  
+  
+
+        </div>
+      </div>
+
+      <!-- Newsletter Widget -->
+      <div class="widget newsletter-box">
+        <h3 class="widget-title">Get Updates</h3>
+        <p>Subscribe to receive new articles and insights in your inbox.</p>
+        <form class="newsletter-subscribe">
+          <input type="email" placeholder="Enter your email" required>
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </form>
+      </div>
+    </aside>
+  </div>
 </main>
 
