@@ -1,11 +1,25 @@
-<?php 
-require 'inc/header.php';
+<?php
+require 'pages/header_admin.php';
 ?>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <h2>Novus Admin</h2>
+      <a href="overview.php" class="nav-item " >Overview</a>
+      <a href="posts.php" class="nav-item" >Posts</a>
+      <a href="comments.php" class="nav-item" >Comments</a>
+      <a href="categories.php" class="nav-item" >Categories</a>
+      <a href="users.php" class="nav-item active" >Users</a>
+    </nav>
+
+  <!-- MAIN -->
+  <div class="main">
 
 
 
 <!-- ===== USERS ===== -->
-      <section id="users" class="page hidden">
+      <section class="page ">
         <div class="panel">
           <div class="panel-header">
             <h1>Users</h1>
@@ -42,3 +56,14 @@ require 'inc/header.php';
         </div>
       
       </section>
+
+
+
+
+  </div>
+</div>
+
+<?php
+  require 'pages/footer_all.php';
+  ?>
+

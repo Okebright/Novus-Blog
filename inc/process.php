@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "inc/header.php";
 
 //REGISTRATION PROCESS
@@ -40,7 +41,7 @@ if (isset($_POST['register'])) {
 //LOGIN PROCESS
 
 if (isset($_POST['login'])) {
-   
+
     // Process login logic here
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -52,18 +53,48 @@ if (isset($_POST['login'])) {
 
     if ($user && password_verify($password, $user['password'])) {
         // Login successful
-        session_start();
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_email'] = $user['email'];
-        header("Location: /novusblog/dashboard.php");
+        header("Location: /novusblog/overview.php");
         $success = "Login successful. Redirecting to dashboard...";
         exit();
     } else {
         // Show error message for invalid credentials
         $error = "Invalid email or password. Please try again.";
-    // }
+        // }
+    }
 }
 
+
+
+
+
+
+//ADD CATEGORY PROCESS
+if (isset($_POST['add_category'])) {
+    // echo "<pre>";
+    // print_r($_POST);
+    // echo "</pre>";
+    $category_name = $_POST['category_name'];
+
+    //Check if category already exists
+    $check_category_query = "SELECT * FROM categories WHERE name = '$category_name'";
+    $check_category_result = mysqli_query($conn, $check_category_query);
+
+    if (mysqli_fetch_assoc($check_category_result)) {
+        $error = "Category already exists. Please use a different category name.";
+    } else {
+        // Add your category addition logic here
+        $sql = "INSERT INTO categories (name) VALUES ('$category_name')";
+        $query = mysqli_query($conn, $sql);
+
+        if ($query) {
+            $success = "Category added successfully.";
+            echo "$success";
+        } else {
+            $error = "Error adding category. Please try again.";
+            echo "$error";
+        }
+    }
 }
-?>

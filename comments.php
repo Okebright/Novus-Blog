@@ -1,10 +1,25 @@
- <?php 
-require 'inc/header.php';
+<?php
+require 'pages/header_admin.php';
 ?>
 
- 
- <!-- ===== COMMENTS ===== -->
-      <section id="comments" class="page hidden">
+<div class="layout">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <h2>Novus Admin</h2>
+    <a href="overview.php" class="nav-item " >Overview</a>
+    <a href="posts.php" class="nav-item" >Posts</a>
+    <a href="comments.php" class="nav-item active" >Comments</a>
+    <a href="categories.php" class="nav-item">Categories</a>
+    <a href="users.php" class="nav-item" >Users</a>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
+
+<!-- ===== COMMENTS ===== -->
+
+
+        <section  class="page ">
         <div class="panel">
           <div class="panel-header">
             <h1>Comments</h1>
@@ -46,3 +61,15 @@ require 'inc/header.php';
           </table>
         </div>
       </section>
+
+
+  </div>
+</div>
+
+<?php
+  require 'pages/footer_all.php';
+  ?>
+
+
+
+ 

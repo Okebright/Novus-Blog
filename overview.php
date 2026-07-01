@@ -1,10 +1,23 @@
 <?php
-require 'inc/header.php';
+require 'pages/header_admin.php';
 ?>
 
+<div class="layout">
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <h2>Novus Admin</h2>
+    <a href="overview.php" class="nav-item active" >Overview</a>
+    <a href="posts.php" class="nav-item" >Posts</a>
+    <a href="comments.php" class="nav-item" >Comments</a>
+    <a href="categories.php" class="nav-item">Categories</a>
+    <a href="users.php" class="nav-item" >Users</a>
+  </nav>
+
+  <!-- MAIN -->
+  <div class="main">
 
 <!-- ===== OVERVIEW ===== -->
-<section id="overview" class="page">
+<section class="page">
   <div class="panel">
     <div class="panel-header">
       <div>
@@ -45,3 +58,9 @@ require 'inc/header.php';
     <div class="activity-item"><b>Mike</b> left a comment on the latest article.</div>
   </div>
 </section>
+  </div>
+</div>
+
+<?php
+  require 'pages/footer_all.php';
+  ?>

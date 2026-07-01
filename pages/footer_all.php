@@ -8,6 +8,9 @@
     </div>
   </footer>
 
+
+
+
 <?php
 require "inc/footer.php";
 ?>
