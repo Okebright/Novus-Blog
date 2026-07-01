@@ -49,6 +49,11 @@ body{
   font-weight:800;
   color:var(--text-dark);
 }
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
 .logout-btn{
   background:var(--red);
   color:#fff;
@@ -333,6 +338,41 @@ tbody tr:hover{ background:rgba(91,79,245,.04); }
   color:var(--text-muted);
   line-height:1.8;
   margin-bottom:24px;
+}
+.alert-msg{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:14px;
+  border-radius:22px;
+  /* padding:18px 20px 14px; */
+  padding-top: 18px;
+  margin-bottom:18px;
+  font-size:15px;
+  line-height:1.0;
+  color:var(--text-dark);
+  background:#ffffff;
+  border:1px solid rgba(15,21,48,.08);
+  box-shadow:0 24px 44px rgba(15,21,48,.05);
+  text-align:center;
+}
+.alert-msg.error{
+  background:rgba(254,242,242,.95);
+  border-color:rgba(239,68,68,.18);
+  color:#981b1b;
+}
+.alert-msg.error::before{
+  background:#ef4444;
+}
+.alert-msg.success{
+  background:rgba(236,253,245,.95);
+  border-color:rgba(16,185,129,.18);
+  color:#065f46;
+}
+.alert-msg.success::before{
+  background:#10b981;
 }
 .auth-panel form{
   display:grid;

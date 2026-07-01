@@ -6,8 +6,11 @@
     <div class="header-container">
         <!-- Logo -->
         <div class="logo">
-            <h1>Novus Blog</h1>
-        </div>
+<a href="index.php">
+                <h1>Novus Blog</h1>
+
+</a>
+    </div>
 
         <!-- Navigation Bar -->
         <nav class="navbar">
