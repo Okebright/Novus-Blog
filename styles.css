@@ -32,6 +32,9 @@ body{
 
 /* ---------- Top bar ---------- */
 .topbar{
+  position:sticky;
+  top:0;
+  z-index:1000;
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -408,9 +411,13 @@ tbody tr:hover{ background:rgba(91,79,245,.04); }
 .hidden{ display:none; }
 
 .site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
   background:#0f1530;
-  padding:20px 0;
+  padding:18px 0;
   border-bottom:1px solid rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
 }
 .header-homepage .header-container{
   display:flex;
