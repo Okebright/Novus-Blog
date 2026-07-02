@@ -1,6 +1,19 @@
 <?php
 require 'pages/header_admin.php';
 
+
+if (isset($_GET['edit_category']) && !empty($_GET['edit_category'])) {
+    $category_id = $_GET['edit_category'];
+
+    // Fetch the category details from the database
+    $sql = "SELECT * FROM categories WHERE id = '$category_id'";
+    $query = mysqli_query($conn, $sql);
+    $category = mysqli_fetch_assoc($query);
+}else {
+    // Redirect to categories.php if no category ID is provided
+    header("Location: categories.php");
+    exit();
+}
 ?>
 
 
@@ -20,24 +33,20 @@ require 'pages/header_admin.php';
 
 
 
-    <!-- ===== CATEGORIES ===== -->
+    <!-- ===== EDIT CATEGORIES ===== -->
     <section class="page ">
       <div class="panel">
         <div class="panel-header">
-          <h1>Categories</h1>
-          <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            <button class="btn-outline">New Category</button>
-
-          </a>
+          <h1>Edit Category</h1>
 
         </div>
       </div>
 
       <div class="panel">
-        <div class="section-row">
+        <!-- <div class="section-row">
           <h3>Manage Categories</h3>
           <a href="javascript:;" data-bs-toggle="modal" data-bs-target="#exampleModal" class="view-all">Add New</a>
-        </div>
+        </div> -->
 
         <!-- INSERT ALERT MESSAGES -->
         <?php include 'inc/process.php'; ?>
@@ -56,41 +65,20 @@ require 'pages/header_admin.php';
         </div>
 
 
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Slug</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
+        <div class="auth-panel  ">
 
-            <!-- COLLECT CATEGORIES FROM DATABASE -->
-            <?php
-            $row_numbering = 1; // Initialize a variable to keep track of the row number
-            $sql = "SELECT * FROM categories";
-            $query = mysqli_query($conn, $sql);
-          while ($category = mysqli_fetch_assoc($query)) { ?>
+          <form action="" method="POST">
+            <label>
+               Edit Category 
+              <input type="text" name="edited_category_name" placeholder="Edit Category title" required value="<?php echo $category['name']; ?>">
+            </label>
 
-              <tr>
-                <td >  <?php echo $row_numbering++; ?></td>
-                <td><?php echo $category['name']; ?></td>
-                <td><?php echo $category['name']; ?></td>
-                <td>
-                  <a href="categories_edit.php?edit_category=<?php echo $category['id']; ?>">
-                    <button class="action-link edit">Edit</button>
-                  </a>
-                  <a href="categories.php?delete_category=<?php echo $category['id']; ?>">
-                    <button class="action-link delete">Delete</button>
-                  </a>
-                </td>
-              </tr>
-            <?php } ?>
+            <button type="submit" class="btn-primary" name="edit_category" value="edit_category">Edit Category</button>
+          </form>
+        </div>
 
-          </tbody>
-        </table>
+
+
       </div>
     </section>
 
@@ -120,16 +108,7 @@ require 'pages/footer_all.php';
 
 
       <div class="modal-body ">
-        <?php include 'inc/process.php'; ?>
 
-        <form action="" method="POST">
-          <label>
-            Category Title
-            <input type="text" name="category_name" placeholder="Category title" required>
-          </label>
-
-          <button type="submit" class="btn-primary" name="add_category" value="add_category">Add Category</button>
-        </form>
       </div>
 
     </div>

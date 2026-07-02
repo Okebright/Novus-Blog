@@ -110,10 +110,34 @@ if (isset($_GET['delete_category'])) {
             $error = "Error deleting category. Please try again.";
             // exit();
         }
-
-
 }
 
+//EDIT CATEGORY PROCESS
+if (isset($_POST['edit_category'])) {
+    $category_id = $_GET['edit_category'];
+    $edited_category_name = $_POST['edited_category_name'];
+
+    // Check if the category name already exists
+    $check_category_query = "SELECT * FROM categories WHERE name = '$edited_category_name' AND id != '$category_id'";
+    $check_category_result = mysqli_query($conn, $check_category_query);
+
+    if (mysqli_fetch_assoc($check_category_result)) {
+        $error = "Category name already exists. Please use a different name.";
+    } else {
+        // Update the category in the database
+        $update_category_query = "UPDATE categories SET name = '$edited_category_name' WHERE id = '$category_id'";
+        $update_category_result = mysqli_query($conn, $update_category_query);
+
+        if ($update_category_result) {
+            $success = "Category updated successfully.";
+            // Redirect to categories.php after successful update
+            header("Location: categories.php");
+            exit();
+        } else {
+            $error = "Error updating category. Please try again.";
+        }
+    }
+}
 
 
 
