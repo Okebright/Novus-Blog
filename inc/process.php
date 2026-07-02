@@ -1,5 +1,4 @@
 <?php
-session_start();
 require "inc/header.php";
 
 //REGISTRATION PROCESS
@@ -53,6 +52,7 @@ if (isset($_POST['login'])) {
 
     if ($user && password_verify($password, $user['password'])) {
         // Login successful
+        session_start();
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_email'] = $user['email'];
@@ -91,10 +91,50 @@ if (isset($_POST['add_category'])) {
 
         if ($query) {
             $success = "Category added successfully.";
-            echo "$success";
         } else {
             $error = "Error adding category. Please try again.";
-            echo "$error";
         }
     }
 }
+
+//DELETE CATEGORY PROCESS
+if (isset($_GET['delete_category'])) {
+    $category_id = $_GET['delete_category'];
+    $delete_category_query = "DELETE FROM categories WHERE id = '$category_id'";
+    $delete_category_result = mysqli_query($conn, $delete_category_query);
+
+        if ($delete_category_result) {
+            $success = "Category deleted successfully.";
+            // exit();
+        } else {
+            $error = "Error deleting category. Please try again.";
+            // exit();
+        }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>
