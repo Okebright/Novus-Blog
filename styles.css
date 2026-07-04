@@ -442,6 +442,35 @@ tbody tr:hover{ background:rgba(91,79,245,.04); }
   border-color:var(--indigo);
   box-shadow:0 0 0 4px rgba(91,79,245,.08);
 }
+
+
+.auth-panel select{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px 16px;
+  font-size:15px;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.auth-panel select:focus{
+  outline:none;
+  border-color:var(--indigo);
+  box-shadow:0 0 0 4px rgba(91,79,245,.08);
+}
+
+.auth-panel textarea{
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:14px 16px;
+  font-size:15px;
+  rows: 40;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.auth-panel textarea:focus{
+  outline:none;
+  border-color:var(--indigo);
+  box-shadow:0 0 0 4px rgba(91,79,245,.08);
+}
+
 .auth-switch{
   color:var(--text-muted);
   font-size:14px;

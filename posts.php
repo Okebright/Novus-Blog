@@ -7,10 +7,10 @@ require 'pages/header_admin.php';
   <nav class="sidebar">
     <h2>Novus Admin</h2>
     <a href="overview.php" class="nav-item ">Overview</a>
-    <a href="posts.php" class="nav-item active" >Posts</a>
-    <a href="comments.php" class="nav-item" >Comments</a>
-    <a href="categories.php" class="nav-item" >Categories</a>
-    <a href="users.php" class="nav-item" >Users</a>
+    <a href="posts.php" class="nav-item active">Posts</a>
+    <a href="comments.php" class="nav-item">Comments</a>
+    <a href="categories.php" class="nav-item">Categories</a>
+    <a href="users.php" class="nav-item">Users</a>
   </nav>
 
   <!-- MAIN -->
@@ -20,15 +20,37 @@ require 'pages/header_admin.php';
       <div class="panel">
         <div class="panel-header">
           <h1>Posts</h1>
-          <button class="btn-outline">New Post</button>
+          <a href="add_post.php">
+            <button class="btn-outline">New Post</button>
+          </a>
         </div>
       </div>
 
       <div class="panel">
         <div class="section-row">
           <h3>All Posts</h3>
-          <a href="#" class="view-all">Add New</a>
+          <a href="add_post.php" class="view-all">Add New</a>
         </div>
+
+
+        <!-- INSERT ALERT MESSAGES -->
+        <?php include 'inc/process.php'; ?>
+        <div class="alert-container" id="alertBox">
+          <?php if (isset($success)): ?>
+            <div class="alert-msg success">
+
+              <p><?php echo $success; ?></p>
+            </div>
+          <?php endif; ?>
+          <?php if (isset($error)): ?>
+            <div class="alert-msg error" id="alertBox">
+              <p><?php echo $error; ?></p>
+            </div>
+          <?php endif; ?>
+        </div>
+
+
+
         <table>
           <thead>
             <tr>
@@ -40,21 +62,31 @@ require 'pages/header_admin.php';
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td class="post-thumb-cell">
-                <div class="post-thumb">
-                  <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
-                </div>
-              </td>
-              <td>
-                <div class="post-title">How to Build a Modern Blog</div>
-                <div class="post-sub">Published on 12 Jun</div>
-              </td>
-              <td><span class="badge published">Published</span></td>
-              <td><button class="action-link edit">Edit</button><button class="action-link delete">Delete</button></td>
-            </tr>
-            <tr>
+
+            <!-- COLLECT CATEGORIES FROM DATABASE -->
+            <?php
+            $row_numbering = 1; // Initialize a variable to keep track of the row number
+            $sql = "SELECT * FROM posts";
+            $query = mysqli_query($conn, $sql);
+            while ($post = mysqli_fetch_assoc($query)) { ?>
+
+
+              <tr>
+                <td><?php echo $row_numbering++; ?></td>
+                <td class="post-thumb-cell">
+                  <div class="post-thumb">
+                    <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
+                  </div>
+                </td>
+                <td>
+                  <div class="post-title"><?php echo $post['title']; ?></div>
+                  <div class="post-sub"><?php echo $post['status']; ?> on <?php echo $post['timestamp']; ?></div>
+                </td>
+                <td><span class="badge published"><?php echo $post['status']; ?></span></td>
+                <td><button class="action-link edit">Edit</button><button class="action-link delete">Delete</button></td>
+              </tr>
+            <?php } ?>
+            <!-- <tr>
               <td>2</td>
               <td class="post-thumb-cell">
                 <div class="post-thumb">
@@ -81,7 +113,9 @@ require 'pages/header_admin.php';
               </td>
               <td><span class="badge scheduled">Scheduled</span></td>
               <td><button class="action-link edit">Edit</button><button class="action-link delete">Delete</button></td>
-            </tr>
+            </tr> -->
+
+
           </tbody>
         </table>
       </div>

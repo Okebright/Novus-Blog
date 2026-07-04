@@ -25,7 +25,9 @@ require 'pages/header_admin.php';
         <h1>Dashboard</h1>
         <div class="welcome">Welcome, bright</div>
       </div>
-      <button class="btn-outline">New Post</button>
+<a href="add_post.php">
+        <button class="btn-outline">New Post</button>
+</a>
     </div>
   </div>
 

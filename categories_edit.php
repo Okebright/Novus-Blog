@@ -98,7 +98,7 @@ require 'pages/footer_all.php';
 </button> -->
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog auth-panel  ">
     <div class="modal-content">
       <div class="modal-header">
@@ -114,7 +114,7 @@ require 'pages/footer_all.php';
     </div>
   </div>
 </div>
-
+ -->
 
 <!-- <section class="auth-page modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="auth-panel">
