@@ -72,12 +72,13 @@ require 'pages/header_admin.php';
             $row_numbering = 1; // Initialize a variable to keep track of the row number
             $sql = "SELECT * FROM categories";
             $query = mysqli_query($conn, $sql);
-          while ($category = mysqli_fetch_assoc($query)) { ?>
-
+          while ($category = mysqli_fetch_assoc($query)) {
+             $slug = strtolower(str_replace(' ', '-', $category['name'])); // Generate slug from category name
+             ?>
               <tr>
                 <td >  <?php echo $row_numbering++; ?></td>
                 <td><?php echo $category['name']; ?></td>
-                <td><?php echo $category['name']; ?></td>
+                <td><?php echo $slug; ?></td>
                 <td>
                   <a href="categories_edit.php?edit_category=<?php echo $category['id']; ?>">
                     <button class="action-link edit">Edit</button>

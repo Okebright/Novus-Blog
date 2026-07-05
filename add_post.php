@@ -1,20 +1,5 @@
 <?php
 require 'pages/header_admin.php';
-
-
-// if (isset($_GET['edit_category']) && !empty($_GET['edit_category'])) {
-//     $category_id = $_GET['edit_category'];
-
-//     // Fetch the category details from the database
-//     $sql = "SELECT * FROM categories WHERE id = '$category_id'";
-//     $query = mysqli_query($conn, $sql);
-//     $category = mysqli_fetch_assoc($query);
-// }else {
-//     // Redirect to categories.php if no category ID is provided
-//     header("Location: categories.php");
-//     exit();
-// }
-// 
 ?>
 
 
@@ -66,47 +51,54 @@ require 'pages/header_admin.php';
         </div>
 
 
-        <div class="auth-panel  ">
+        <div class="form-panel">
 
-          <form action="" method="POST">
+          <form action="" method="POST" encrtype="multipart/form-data">
             <label>
               Post Title
               <input type="text" name="post_title" placeholder=" Post Title" required">
             </label>
 
             <div class="row">
-              <div class="col-6">`
-      <label>
-              Status
-              <select name="post_status" id="">
-                <option value="0">Draft</option>
-                <option value="1">Published</option>
-              </select>
-            </label>
-              </div>
+
               <div class="col-6">
-      <label>
-              Status
-              <select name="category_id" id="">
+                <label>
+                  Category
+                  <select name="category_id" id="">
 
-                <?php
-                // Fetch categories from the database
-                $sql = "SELECT * FROM categories";
-                $query = mysqli_query($conn, $sql);
+                    <?php
+                    // Fetch categories from the database
+                    $sql = "SELECT * FROM categories ORDER BY id DESC";
+                    $query = mysqli_query($conn, $sql);
 
-                while ($category = mysqli_fetch_assoc($query)) {
-                    echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
-                }
-                ?>
-              </select>
-            </label>
+                    while ($category = mysqli_fetch_assoc($query)) {
+                      echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
+                    }
+                    ?>
+                  </select>
+                </label>
               </div>
+
+              <div class="col-6">`
+                <label>
+                  Status
+                  <select name="post_status" id="">
+                    <option value="0">Draft</option>
+                    <option value="1">Published</option>
+                  </select>
+                </label>
+              </div>
+
 
             </div>
 
             <label>
               Post Content
               <textarea name="post_content" id="" placeholder="Post Content"></textarea>
+            </label>
+                     <label>
+               Thumbnail 
+              <input type="file" name="thumbnail" placeholder=" Thumbnail " required">
             </label>
             <button type="submit" class="btn-primary" name="add_post" value="add_post">Submit </button>
           </form>

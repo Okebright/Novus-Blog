@@ -140,7 +140,12 @@ if (isset($_POST['edit_category'])) {
 }
 
 
-
+//ADD POST PROCESS
+if (isset($_POST['add_post'])) {
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+}
 
 
 
