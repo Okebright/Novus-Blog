@@ -75,45 +75,36 @@ require 'pages/header_admin.php';
                 <td><?php echo $row_numbering++; ?></td>
                 <td class="post-thumb-cell">
                   <div class="post-thumb">
-                    <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
+                    <img src="<?php echo $post['thumbnail']; ?>" alt="Post thumbnail">
                   </div>
                 </td>
                 <td>
                   <div class="post-title"><?php echo $post['title']; ?></div>
-                  <div class="post-sub"><?php echo $post['status']; ?> on <?php echo $post['timestamp']; ?></div>
+                  <div class="post-sub"><?php
+                                          if ($post['status'] == 1) {
+                                                    echo "Published";
+                                                  } else {
+                                                    echo "Draft";
+                                                  }
+                                        ?> on <?php echo $post['timestamp'];
+                        ?></div>
                 </td>
-                <td><span class="badge published"><?php echo $post['status']; ?></span></td>
-                <td><button class="action-link edit">Edit</button><button class="action-link delete">Delete</button></td>
+                <td><span class="badge published"><?php
+                                                  if ($post['status'] == 1) {
+                                                    echo "Published";
+                                                  } else {
+                                                    echo "Draft";
+                                                  }
+                                                  ?></span></td>
+                <td>
+                  <a href="edit_post.php?edit_post=<?php echo $post['id']; ?>" class="action-link edit">Edit</a>
+<a href="posts.php?delete_post=<?php echo $post['id'];?>">
+                    <button class="action-link delete">Delete</button>
+
+</a>
+                </td>
               </tr>
             <?php } ?>
-            <!-- <tr>
-              <td>2</td>
-              <td class="post-thumb-cell">
-                <div class="post-thumb">
-                  <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
-                </div>
-              </td>
-              <td>
-                <div class="post-title">Tips for Better Content Writing</div>
-                <div class="post-sub">Draft saved</div>
-              </td>
-              <td><span class="badge draft">Draft</span></td>
-              <td><button class="action-link edit">Edit</button><button class="action-link delete">Delete</button></td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td class="post-thumb-cell">
-                <div class="post-thumb">
-                  <img src="https://via.placeholder.com/88x60?text=Image" alt="Post thumbnail">
-                </div>
-              </td>
-              <td>
-                <div class="post-title">The Future of Web Development</div>
-                <div class="post-sub">Scheduled for 20 Jun</div>
-              </td>
-              <td><span class="badge scheduled">Scheduled</span></td>
-              <td><button class="action-link edit">Edit</button><button class="action-link delete">Delete</button></td>
-            </tr> -->
 
 
           </tbody>

@@ -103,13 +103,13 @@ if (isset($_GET['delete_category'])) {
     $delete_category_query = "DELETE FROM categories WHERE id = '$category_id'";
     $delete_category_result = mysqli_query($conn, $delete_category_query);
 
-        if ($delete_category_result) {
-            $success = "Category deleted successfully.";
-            // exit();
-        } else {
-            $error = "Error deleting category. Please try again.";
-            // exit();
-        }
+    if ($delete_category_result) {
+        $success = "Category deleted successfully.";
+        // exit();
+    } else {
+        $error = "Error deleting category. Please try again.";
+        // exit();
+    }
 }
 
 //EDIT CATEGORY PROCESS
@@ -139,29 +139,139 @@ if (isset($_POST['edit_category'])) {
     }
 }
 
-
 //ADD POST PROCESS
 if (isset($_POST['add_post'])) {
-    echo "<pre>";
-    print_r($_POST);
-    echo "</pre>";
+
+    //THUMBNAIL UPLOAD PROCESS
+    if (!empty($_FILES['thumbnail']['name']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
+        $target_dir = "uploads/";
+        $baseline = basename($_FILES['thumbnail']['name']);
+        $upload_file = $target_dir . $baseline;
+        $url = $upload_file;
+
+        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $upload_file)) {
+            // File uploaded successfully, proceed with adding the post to the database
+            $post_title = trim($_POST['post_title'] ?? '');
+            $category_id = (int)($_POST['category_id'] ?? 0);
+            $post_status = (int)($_POST['post_status'] ?? 0);
+            $post_content = trim($_POST['post_content'] ?? '');
+            $thumbnail = $url; // Use the uploaded file path as the thumbnail
+
+            // Validate required fields
+            if ($post_title === '' || $category_id <= 0) {
+                $error = "Missing required post fields (title or category).";
+            } else {
+                // Use prepared statement to avoid SQL syntax errors and injection
+                $sql = "INSERT INTO posts (title, category_id, status, content, thumbnail)
+                 VALUES (?, ?, ?, ?, ?)";
+                $add_post_stmt = mysqli_prepare($conn, $sql);
+                if ($add_post_stmt) {
+
+                    //mysqli_query is quick but unsafe 
+                    //if you’re handling user input. 
+                    //Prepared statements are the professional, 
+                    //secure way to interact with databases.
+
+                    mysqli_stmt_bind_param($add_post_stmt, "siiss", $post_title, $category_id, $post_status, $post_content, $thumbnail);
+                    if (mysqli_stmt_execute($add_post_stmt)) {
+                        $success = "Post added successfully.";
+                    } else {
+                        $error = "Error adding post: " . mysqli_stmt_error($add_post_stmt);
+                    }
+                    mysqli_stmt_close($add_post_stmt);
+                } else {
+                    $error = "Database error: " . mysqli_error($conn);
+                }
+            }
+
+            // Keep file upload success message only if no other error
+            if (!isset($error)) {
+                $success = isset($success) ? $success : "File uploaded successfully.";
+            }
+        } else {
+            $error = "Error uploading file. Please check that the uploads folder exists and is writable.";
+        }
+    } else {
+        $error = "No file was uploaded or there was an upload error.";
+    }
 }
 
+//EDIT POST PROCESS 
+
+if (isset($_POST['edit_post'])) {
+    $post_id = $_GET['edit_post'];
 
 
+    //THUMBNAIL UPLOAD PROCESS
+    if (!empty($_FILES['thumbnail']['name']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
+        $target_dir = "uploads/";
+        $baseline = basename($_FILES['thumbnail']['name']);
+        $upload_file = $target_dir . $baseline;
+        $url = $upload_file;
+
+        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $upload_file)) {
+            // File uploaded successfully, proceed with adding the post to the database
+            $post_title = trim($_POST['post_title'] ?? '');
+            $category_id = (int)($_POST['category_id'] ?? 0);
+            $post_status = (int)($_POST['post_status'] ?? 0);
+            $post_content = trim($_POST['post_content'] ?? '');
+            $thumbnail = $url; // Use the uploaded file path as the thumbnail
+
+            // Validate required fields
+            if ($post_title === '' || $category_id <= 0) {
+                $error = "Missing required post fields (title or category).";
+            } else {
+                // Use prepared statement to avoid SQL syntax errors and injection
+                $sql = "    UPDATE INTO posts (title, category_id, status, content, thumbnail)
+                 VALUES (?, ?, ?, ?, ?)";
+                $add_post_stmt = mysqli_prepare($conn, $sql);
+                if ($add_post_stmt) {
+
+                    //mysqli_query is quick but unsafe 
+                    //if you’re handling user input. 
+                    //Prepared statements are the professional, 
+                    //secure way to interact with databases.
+
+                    mysqli_stmt_bind_param($add_post_stmt, "siiss", $post_title, $category_id, $post_status, $post_content, $thumbnail);
+                    if (mysqli_stmt_execute($add_post_stmt)) {
+                        $success = "Post added successfully.";
+                    } else {
+                        $error = "Error adding post: " . mysqli_stmt_error($add_post_stmt);
+                    }
+                    mysqli_stmt_close($add_post_stmt);
+                } else {
+                    $error = "Database error: " . mysqli_error($conn);
+                }
+            }
+
+            // Keep file upload success message only if no other error
+            if (!isset($error)) {
+                $success = isset($success) ? $success : "File uploaded successfully.";
+            }
+        } else {
+            $error = "Error uploading file. Please check that the uploads folder exists and is writable.";
+        }
+    } else {
+        $error = "No file was uploaded or there was an upload error.";
+    }
+}
+
+//DELETE POST
 
 
+if (isset($_GET['delete_post'])) {
+    $post_id = $_GET['delete_post'];
+    $sql = "DELETE FROM posts WHERE id = '$post_id'";
+    $delete_post_query = mysqli_query($conn, $sql);
 
-
-
-
-
-
-
-
-
-
-
+    if ($delete_post_query) {
+        $success = "Post deleted successfully.";
+        // exit();
+    } else {
+        $error = "Error deleting post. Please try again.";
+        // exit();
+    }
+}
 
 
 
