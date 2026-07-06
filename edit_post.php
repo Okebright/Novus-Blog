@@ -3,16 +3,16 @@ require 'pages/header_admin.php';
 
 
 if (isset($_GET['edit_post']) && !empty($_GET['edit_post'])) {
-    $post_id = $_GET['edit_post'];
+  $post_id = $_GET['edit_post'];
 
-    // Fetch the post details from the database
-    $sql = "SELECT * FROM posts WHERE id = '$post_id'";
-    $query = mysqli_query($conn, $sql);
-    $post = mysqli_fetch_assoc($query);
-}else {
-    // Redirect to posts.php if no post ID is provided
-    header("Location: posts.php");
-    exit();
+  // Fetch the post details from the database
+  $sql = "SELECT * FROM posts WHERE id = '$post_id'";
+  $query = mysqli_query($conn, $sql);
+  $post = mysqli_fetch_assoc($query);
+} else {
+  // Redirect to posts.php if no post ID is provided
+  header("Location: posts.php");
+  exit();
 }
 ?>
 
@@ -89,7 +89,7 @@ if (isset($_GET['edit_post']) && !empty($_GET['edit_post'])) {
                     $query = mysqli_query($conn, $sql);
 
                     while ($category = mysqli_fetch_assoc($query)) {
-                      echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
+                      echo '<option value="' . $category['id'] . '" ' . (($category['id'] == $post['category_id']) ? 'selected' : '') . '>' . $category['name'] . '</option>';
                     }
                     ?>
                   </select>
@@ -111,11 +111,14 @@ if (isset($_GET['edit_post']) && !empty($_GET['edit_post'])) {
 
             <label>
               Post Content
-              <textarea name="post_content" id="" placeholder="Post Content" value =""><?php echo $post['content']; ?></textarea>
+              <textarea name="post_content" id="" placeholder="Post Content" value=""><?php echo $post['content']; ?></textarea>
             </label>
-                     <label>
-               Thumbnail 
+            <label>
+              Thumbnail
               <input type="file" name="thumbnail" placeholder=" Thumbnail " value="<?php echo $post['thumbnail']; ?>" required">
+                     <div class="post-thumb">
+                    <img src="<?php echo $post['thumbnail']; ?>" alt="Post thumbnail">
+                  </div>
             </label>
             <button type="submit" class="btn-primary" name="edit_post" value="edit_post">Submit </button>
           </form>

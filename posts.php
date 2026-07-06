@@ -81,13 +81,13 @@ require 'pages/header_admin.php';
                 <td>
                   <div class="post-title"><?php echo $post['title']; ?></div>
                   <div class="post-sub"><?php
-                                          if ($post['status'] == 1) {
-                                                    echo "Published";
-                                                  } else {
-                                                    echo "Draft";
-                                                  }
+                                        if ($post['status'] == 1) {
+                                          echo "Published";
+                                        } else {
+                                          echo "Draft";
+                                        }
                                         ?> on <?php echo $post['timestamp'];
-                        ?></div>
+                                              ?></div>
                 </td>
                 <td><span class="badge published"><?php
                                                   if ($post['status'] == 1) {
@@ -98,10 +98,10 @@ require 'pages/header_admin.php';
                                                   ?></span></td>
                 <td>
                   <a href="edit_post.php?edit_post=<?php echo $post['id']; ?>" class="action-link edit">Edit</a>
-<a href="posts.php?delete_post=<?php echo $post['id'];?>">
+                  <a href="posts.php?delete_post=<?php echo $post['id']; ?>">
                     <button class="action-link delete">Delete</button>
 
-</a>
+                  </a>
                 </td>
               </tr>
             <?php } ?>

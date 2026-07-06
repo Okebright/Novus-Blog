@@ -76,7 +76,12 @@
       <div class="posts-grid">
 
 
-      <?php for ($i = 1; $i<=6; $i++){?>
+      <?php
+       for ($i = 1; $i<=6; $i++){
+                $sql = "SELECT * FROM posts";
+            $query = mysqli_query($conn, $sql);
+       ?>    
+
      <article class="post-card">
           <div class="post-image">
             <img src="https://via.placeholder.com/400x220?text=Post+1" alt="Post">
