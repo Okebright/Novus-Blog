@@ -35,7 +35,7 @@ body{
   position:sticky;
   top:0;
   z-index:1000;
-  display:flex;
+  display:flex;  
   align-items:center;
   justify-content:space-between;
   padding:24px 40px;
@@ -43,6 +43,20 @@ body{
   border-bottom:1px solid rgba(15,21,48,.08);
   border-radius:0 0 28px 28px;
   box-shadow:0 24px 80px rgba(15,21,48,.08);
+}
+
+.topbar h1{
+  font-size:28px;
+  font-weight:700;
+  color:var(--text-dark);
+}
+
+.admin-nav-btn{
+ display:flex;
+ flex-direction: row;
+  align-items:center;
+  column-gap: 24px;
+  transition:transform .2s ease, background .2s ease;
 }
 .logo{
   font-size:28px;
@@ -1021,8 +1035,10 @@ tbody tr:hover{ background:rgba(91,79,245,.04); }
   border-radius:20px;
   overflow:hidden;
   transition:box-shadow .2s ease, transform .2s ease;
-  display:flex;
+  /* display:flex;
   flex-direction:column;
+  justify-items: space-evenly; ;
+  align-items:flex-start */
 }
 
 .post-card:hover{
@@ -2032,6 +2048,75 @@ tbody tr:hover{ background:rgba(91,79,245,.04); }
   }
   .posts-cta{
     margin-top:20px;
+  }
+  /* Single Post Responsive */
+  .post-single{
+    padding:40px 16px;
+  }
+  .post-hero-container{
+    max-width:900px;
+    margin:0 auto;
+  }
+  .breadcrumb-nav{
+    font-size:13px;
+    margin-bottom:20px;
+  }
+  .post-title{
+    font-size:26px;
+  }
+  .post-meta{
+    flex-direction:column;
+    gap:16px;
+  }
+  .meta-group{
+    flex-wrap:wrap;
+  }
+  .meta-item{
+    font-size:13px;
+  }
+  .featured-image{
+    max-height:400px;
+  }
+  .post-container{
+    max-width:900px;
+    margin:40px auto;
+    gap:24px;
+  }
+  .post-content-wrapper{
+    gap:24px;
+  }
+  .post-body{
+    font-size:15px;
+    line-height:1.8;
+  }
+  .post-body h2{
+    font-size:20px;
+    margin:28px 0 16px;
+  }
+  .post-body p{
+    margin-bottom:16px;
+  }
+  .author-card{
+    padding:18px;
+  }
+  .author-header{
+    margin-bottom:14px;
+  }
+  .comment-form{
+    padding:16px;
+  }
+  .comment-form h4{
+    font-size:16px;
+    margin-bottom:12px;
+  }
+  .post-sidebar{
+    flex-direction:column;
+  }
+  .sidebar-widget{
+    padding:16px;
+  }
+  .widget-title{
+    font-size:15px;
   }
 }
 

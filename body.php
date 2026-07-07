@@ -77,22 +77,25 @@
 
 
       <?php
-       for ($i = 1; $i<=6; $i++){
-                $sql = "SELECT * FROM posts";
-            $query = mysqli_query($conn, $sql);
-       ?>    
+                $sql = "SELECT * FROM posts ORDER BY timestamp DESC LIMIT 6";
+            $post_query = mysqli_query($conn, $sql);
+            $post = mysqli_fetch_assoc($post_query);
+            while ($post = mysqli_fetch_assoc($post_query) ){?>
 
      <article class="post-card">
           <div class="post-image">
-            <img src="https://via.placeholder.com/400x220?text=Post+1" alt="Post">
+            <img src="<?php echo $post['thumbnail']; ?>" alt="Post">
           </div>
           <div class="post-body">
             <div class="post-header">
-              <span class="post-cat">Technology</span>
-              <span class="post-date">Jun 15</span>
+              <span class="post-cat">category</span>
+              <span class="post-date">Date : <?php echo date ("F j, Y", strtotime($post['timestamp'])) ?> </span>
             </div>
-            <h3><a href="#">Building Scalable Web Applications</a></h3>
-            <p>Best practices and architecture patterns for modern web development.</p>
+            <h3><a href="#"><?php echo $post['title']; ?></a></h3>
+            <p><?php echo substr($post['content'], 0, 100) . '...'; ?></p>
+            <a href="#">
+              <button class="btn-primary">Read More</button>
+            </a>
           </div>
         </article>
       <?php } ?>
