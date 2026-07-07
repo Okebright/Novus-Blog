@@ -275,3 +275,92 @@ if (isset($_GET['delete_post'])) {
         // exit();
     }
 }
+
+//ADD USER
+
+if (isset($_POST['add_user'])) {
+    // Process registration logic here
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
+    $confirm_password = $_POST['confirm_password'];
+
+    // Add your registration logic here
+    if ($password === $confirm_password) {
+        //confirm password matches, proceed with registration
+        $encrypted_password = password_hash($password, PASSWORD_DEFAULT);
+
+        //check if email already exists
+        $check_email_query = "SELECT * FROM users WHERE email = '$email'";
+        $check_email_result = mysqli_query($conn, $check_email_query);
+
+        if (mysqli_fetch_assoc($check_email_result)) {
+            $error = "Email already exists. Please use a different email.";
+            // echo $error;
+        } else {
+            // Save user to database
+            $sql = "INSERT INTO users (name, email, role, password) VALUES ('$name', '$email', '$role', '$encrypted_password')";
+            $query = mysqli_query($conn, $sql);
+            $success = "User Added successfully.";
+            // echo $success;
+            // Redirect or show success message
+            header("Location: users.php");
+        }
+    } else {
+        // Show error message for password mismatch
+        $error = "Unmatched passwords. Please try again.";
+        // echo $error;
+    }
+}
+
+
+//EDIT USER
+
+if (isset($_POST['edit_user'])) {
+    // Process registration logic here
+    $user_id = $_GET['edit_user'];
+    $name = $_POST['name'];
+    $password = $_POST['password'];
+    $role = $_POST['role'];
+    $confirm_password = $_POST['confirm_password'];
+
+    // Add your registration logic here
+    if ($password === $confirm_password) {
+        //confirm password matches, proceed with registration
+        $encrypted_password = password_hash($password, PASSWORD_DEFAULT); {
+            // UPdate user to database
+            $sql = "UPDATE  users SET 
+            name = '$name', role = '$role', password = '$encrypted_password' 
+            WHERE id = '$user_id'";
+            $query = mysqli_query($conn, $sql);
+            $success = "User Updated successfully.";
+            // echo $success;
+            // Redirect or show success message
+            header("Location: users.php");
+        }
+    } else {
+        // Show error message for password mismatch
+        $error = "Unmatched passwords. Please try again.";
+        // echo $error;
+    }
+}
+
+
+
+//DELETE USER
+
+
+if (isset($_GET['delete_user'])) {
+    $user_id = $_GET['delete_user'];
+    $sql = "DELETE FROM users WHERE id = '$user_id'";
+    $delete_user_query = mysqli_query($conn, $sql);
+
+    if ($delete_user_query) {
+        $success = "User deleted successfully.";
+        // exit();
+    } else {
+        $error = "Error deleting user. Please try again.";
+        // exit();
+    }
+}
