@@ -2,13 +2,13 @@
 session_start();
 require 'pages/header_homepage.php';
 
-if (isset($_GET['single_post']) && !empty($_GET['single_post'])) {
-    $post_id = $_GET['single_post'];
+if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
+    $category_id = $_GET['category_id'];
 
-    // Fetch the post details from the database
-    $sql = "SELECT * FROM posts WHERE id = '$post_id'";
+    // Fetch the category details from the database
+    $sql = "SELECT * FROM categories WHERE id = '$category_id'";
     $query = mysqli_query($conn, $sql);
-    $post = mysqli_fetch_assoc($query);
+    $category = mysqli_fetch_assoc($query);
 } else {
     // Redirect to posts.php if no post ID is provided
     header("Location: posts.php");
@@ -16,11 +16,10 @@ if (isset($_GET['single_post']) && !empty($_GET['single_post'])) {
 }
 ?>
 
-?>
 
-<header class="home-hero" style="background: linear-gradient(135deg, #fff 0%, rgba(249, 248, 248, 0.83) 70%), url('<?php echo $post['thumbnail']; ?>'); background-size: cover; background-position: center; background-repeat: no-repeat; ;">
-    <div class="hero-minimal single-post-hero">
-        <h1><?php echo $post['title'] ?></h1>
+<header class="home-hero">
+    <div class="hero-minimal">
+        <h1><span style="font-weight: bold; color: grey;">Category:</span> <?php echo " " . $category['name']; ?> </h1>
         <!-- <p>A simple, elegant platform for writers and creators</p> -->
         <!-- <a href="#featured" class="hero-cta">Read Latest →</a> -->
     </div>
@@ -32,113 +31,64 @@ if (isset($_GET['single_post']) && !empty($_GET['single_post'])) {
     <div class="content-layout">
         <!-- Latest Posts -->
         <section class="latest-posts">
-            <div class="single-post">
-                <div class="posts-header single-post-image">
-                    <img src="<?php echo $post['thumbnail']; ?>" alt="Post">
+            <div class="posts-header">
+                <div>
+                    <?php 
+                    //    $sql = "SELECT * FROM categories" WHERE id = '$category_id'";
+                    // $category_query = mysqli_query($conn, $sql);
+                    // $category = mysqli_fetch_assoc($category_query);
+                    ?>
+                    <h2><?php echo $category['name'] . " "; ?> <span style="font-weight: bold; color: grey;">Articles</span></h2>
+                    <!-- <p>Fresh content from our writers</p> -->
                 </div>
-                <div class="post-header">
-                    <span class="post-cat">
+                <!-- <a href="all_posts.php" class="view-all-link">View All →</a> -->
+            </div>
 
-                        <?php
-                        $cat_id = $post['category_id'];
-                        $sql = "SELECT * FROM categories WHERE id = '$cat_id'";
-                        $cat_query = mysqli_query($conn, $sql);
-                        $category = mysqli_fetch_assoc($cat_query);
-                        echo $category['name'];
-                        ?>
+            <div class="posts-grid">
 
 
-                    </span>
-                    <span class="post-date">Date : <?php echo date("F j, Y", strtotime($post['timestamp'])) ?> </span>
-                </div>
-                <div class="post-body">
-                    <h2><?php echo $post['title']; ?></h2>
-                    <p><?php echo $post['content']; ?></p>
-                </div>
-                <div class="posts-cta">
-                    <a href="all_posts.php?" class="btn-outline">Load More Articles</a>
-                </div>
+                <?php
+                // Fetch posts based on category_id
+                $sql = "SELECT * FROM posts WHERE category_id = '$category_id' AND status = 1 ORDER BY timestamp DESC";
+                $post_query = mysqli_query($conn, $sql);
+                while ($post = mysqli_fetch_assoc($post_query)) { ?>
+
+                    <article class="post-card">
+                        <div class="post-image">
+                            <img src="<?php echo $post['thumbnail']; ?>" alt="Post">
+                        </div>
+                        <div class="post-body">
+                            <div class="post-header">
+                                <span class="post-cat">
+
+                                    <?php
+                                    $cat_id = $post['category_id'];
+                                    $sql = "SELECT * FROM categories WHERE id = '$cat_id'";
+                                    $cat_query = mysqli_query($conn, $sql);
+                                    $category = mysqli_fetch_assoc($cat_query);
+                                    echo $category['name'];
+                                    ?>
+
+
+                                </span>
+                                <span class="post-date">Date : <?php echo date("F j, Y", strtotime($post['timestamp'])) ?> </span>
+                            </div>
+                            <h3>
+                                <a href="single_post.php?single_post=<?php echo $post['id'] ?>" </a>
+                                    <?php echo $post['title']; ?>
+                                </a>
+                            </h3>
+                            <p><?php echo substr($post['content'], 0, 100) . '...'; ?></p>
+                            <a href="single_post.php?single_post=<?php echo $post['id'] ?>">
+                                <button class="btn-primary">Read More</button>
+                            </a>
+                        </div>
+                    </article>
+                <?php } ?>
             </div>
 
 
-            <!-- COMMENT SECTION -->
-
-
-            <section class="latest-posts">
-                     <div class="posts-header">
-        <div>
-          <h2> Comments</h2>
-          <!-- <p>Fresh content from our writers</p> -->
-        </div>
-        <!-- <a href="all_posts.php" class="view-all-link">View All →</a> -->
-      </div>
-
-
-                <!-- COMMENT FORM -->
-
-
-
-
-                <!-- COMMENT LAYOUT -->
-                <div class="single-post">
-
-
-                    <!-- INSERT ALERT MESSAGES -->
-                    <?php include 'inc/process.php'; ?>
-                    <div class="alert-container" id="alertBox">
-                        <?php if (isset($success)): ?>
-                            <div class="alert-msg success">
-
-                                <p><?php echo $success; ?></p>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (isset($error)): ?>
-                            <div class="alert-msg error" id="alertBox">
-                                <p><?php echo $error; ?></p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-
-
-                    <div class="form-panel">
-
-                        <form action="" method="POST">
-
-                            <label>
-                                Add Comment
-                                <textarea name="message" id="" placeholder="Add Comment"></textarea>
-
-                                <button type="submit" class="btn-primary" name="add_comment" value="add_comment">Submit </button>
-                        </form>
-                    </div>
-
-
-                    <!-- COMMENT DISPLAYLSPID -->
-
-                    <div class="comment-displayed">
-
-
-
-                        <div class="post-header">
-                            <span class="post-cat">
-                                <?php
-                                echo $user['name'];
-                                ?>
-                            </span>
-                            <span class="post-date">Date : <?php echo date("F j, Y", strtotime($comment['timestamp'])) ?> </span>
-                        </div>
-                        <div class="post-body">
-                            comment
-                        </div>
-                    </div>
-
-
-                </div>
-            </section>
-
         </section>
-
-
 
         <!-- Sidebar -->
         <aside class="sidebar">
