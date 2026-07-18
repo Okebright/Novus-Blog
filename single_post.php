@@ -1,6 +1,10 @@
 <?php
 session_start();
+
 require 'pages/header_homepage.php';
+
+$_SESSION['user_id'] = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : null;
+
 
 if (isset($_GET['single_post']) && !empty($_GET['single_post'])) {
     $post_id = $_GET['single_post'];
@@ -65,75 +69,81 @@ if (isset($_GET['single_post']) && !empty($_GET['single_post'])) {
 
 
             <section class="latest-posts">
-                     <div class="posts-header">
-        <div>
-          <h2> Comments</h2>
-          <!-- <p>Fresh content from our writers</p> -->
-        </div>
-        <!-- <a href="all_posts.php" class="view-all-link">View All →</a> -->
-      </div>
+                <div class="posts-header">
+                    <div>
+                        <h2> Comments</h2>
+                        <!-- <p>Fresh content from our writers</p> -->
+                    </div>
+                    <!-- <a href="all_posts.php" class="view-all-link">View All →</a> -->
+                </div>
 
 
                 <!-- COMMENT FORM -->
 
+                <?php if (isset($_SESSION['user_id'])) { ?>
+                    <!-- COMMENT LAYOUT -->
+                    <div class="single-post">
 
 
+                        <!-- INSERT ALERT MESSAGES -->
+                        <?php include 'inc/process.php'; ?>
+                        <div class="alert-container" id="alertBox">
+                            <?php if (isset($success)): ?>
+                                <div class="alert-msg success">
 
-                <!-- COMMENT LAYOUT -->
-                <div class="single-post">
-
-
-                    <!-- INSERT ALERT MESSAGES -->
-                    <?php include 'inc/process.php'; ?>
-                    <div class="alert-container" id="alertBox">
-                        <?php if (isset($success)): ?>
-                            <div class="alert-msg success">
-
-                                <p><?php echo $success; ?></p>
-                            </div>
-                        <?php endif; ?>
-                        <?php if (isset($error)): ?>
-                            <div class="alert-msg error" id="alertBox">
-                                <p><?php echo $error; ?></p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-
-
-                    <div class="form-panel">
-
-                        <form action="" method="POST">
-
-                            <label>
-                                Add Comment
-                                <textarea name="message" id="" placeholder="Add Comment"></textarea>
-
-                                <button type="submit" class="btn-primary" name="add_comment" value="add_comment">Submit </button>
-                        </form>
-                    </div>
-
-
-                    <!-- COMMENT DISPLAYLSPID -->
-
-                    <div class="comment-displayed">
-
-
-
-                        <div class="post-header">
-                            <span class="post-cat">
-                                <?php
-                                echo $user['name'];
-                                ?>
-                            </span>
-                            <span class="post-date">Date : <?php echo date("F j, Y", strtotime($comment['timestamp'])) ?> </span>
+                                    <p><?php echo $success; ?></p>
+                                </div>
+                            <?php endif; ?>
+                            <?php if (isset($error)): ?>
+                                <div class="alert-msg error" id="alertBox">
+                                    <p><?php echo $error; ?></p>
+                                </div>
+                            <?php endif; ?>
                         </div>
-                        <div class="post-body">
-                            comment
+
+
+                        <div class="form-panel">
+
+                            <form action="" method="POST">
+
+                                <label>
+                                    Add Comment
+                                    <textarea name="message" id="" placeholder="Add Comment"></textarea>
+
+                                    <button type="submit" class="btn-primary" name="add_comment" value="add_comment">Submit </button>
+                            </form>
                         </div>
+
+
+                        <!-- COMMENT DISPLAYLSPID -->
+
+                        <div class="comment-displayed">
+
+
+
+                            <div class="post-header">
+                                <span class="post-cat">
+                                    <?php
+                                    echo $user['name'];
+                                    ?>
+                                </span>
+                                <span class="post-date">Date : <?php echo date("F j, Y", strtotime($comment['timestamp'])) ?> </span>
+                            </div>
+                            <div class="post-body">
+                                comment
+                            </div>
+                        </div>
+
+
                     </div>
+                <?php } else { ?>
+                    <div class="auth-switch">
+                        <a href="login.php">Log in</a> to add Comment
+                    </div>
+                <?php } ?>
 
 
-                </div>
+
             </section>
 
         </section>
@@ -233,5 +243,4 @@ if (isset($_GET['single_post']) && !empty($_GET['single_post'])) {
 
 
 
-<?php require "pages/footer_all.php";
-?>
+<?php require "pages/footer_all.php"; ?>

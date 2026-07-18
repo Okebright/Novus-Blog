@@ -1,5 +1,7 @@
 <?php
 require "inc/header.php";
+// session_start();
+
 
 //REGISTRATION PROCESS
 
@@ -361,6 +363,50 @@ if (isset($_GET['delete_user'])) {
         // exit();
     } else {
         $error = "Error deleting user. Please try again.";
+        // exit();
+    }
+}
+
+
+//ADD COMMENT
+
+if (isset($_POST['add_comment'])) {
+    // Process comment logic here
+    $user_id =   $_SESSION['user_id'];
+    $message = mysqli_real_escape_string($conn, $_POST['message']);
+    $post_id = mysqli_real_escape_string($conn, $_GET['single_post']);
+
+    // Save user to database
+    $sql = "INSERT INTO comments (user_id, message, post_id) 
+            VALUES ('$user_id', '$message', '$post_id')";
+    $comments_query = mysqli_query($conn, $sql);
+
+    if ($comments_query) {
+        $success = "Comments Added successfully.";
+        // header("Location: single_post.php?single_post=" . $post['id']);
+
+    } else {
+
+        $error = "Comment not Added .";
+        // header("Location: single_post.php?single_post=" . $post['id']);
+    }
+}
+
+
+
+//DELETE COMMENT
+
+
+if (isset($_GET['delete_comment'])) {
+    $comment_id = $_GET['delete_comment'];
+    $sql = "DELETE FROM comments WHERE id = '$comment_id'";
+    $delete_comment_query = mysqli_query($conn, $sql);
+
+    if ($delete_comment_query) {
+        $success = "Comment deleted successfully.";
+        // exit();
+    } else {
+        $error = "Error deleting comment. Please try again.";
         // exit();
     }
 }
