@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'user') {
+  header("Location: /novusblog/index.php");
+  exit();
+}
 require 'pages/header_admin.php';
 
 ?>

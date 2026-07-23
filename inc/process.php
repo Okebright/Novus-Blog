@@ -4,7 +4,6 @@ require "inc/header.php";
 
 
 //REGISTRATION PROCESS
-
 if (isset($_POST['register'])) {
     // Process registration logic here
     $name = $_POST['name'];
@@ -58,9 +57,11 @@ if (isset($_POST['login'])) {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_email'] = $user['email'];
-        header("Location: /novusblog/overview.php");
-        $success = "Login successful. Redirecting to dashboard...";
-        exit();
+        $_SESSION['user_role'] = $user['role'];
+
+            header("Location: /novusblog/overview.php");
+            $success = "Login successful. Redirecting to dashboard...";
+            exit();
     } else {
         // Show error message for invalid credentials
         $error = "Invalid email or password. Please try again.";
@@ -201,7 +202,6 @@ if (isset($_POST['add_post'])) {
 }
 
 //EDIT POST PROCESS 
-
 if (isset($_POST['edit_post'])) {
     $post_id = $_GET['edit_post'];
 
@@ -262,8 +262,6 @@ if (isset($_POST['edit_post'])) {
 }
 
 //DELETE POST
-
-
 if (isset($_GET['delete_post'])) {
     $post_id = $_GET['delete_post'];
     $sql = "DELETE FROM posts WHERE id = '$post_id'";
@@ -279,7 +277,6 @@ if (isset($_GET['delete_post'])) {
 }
 
 //ADD USER
-
 if (isset($_POST['add_user'])) {
     // Process registration logic here
     $name = $_POST['name'];
@@ -318,7 +315,6 @@ if (isset($_POST['add_user'])) {
 
 
 //EDIT USER
-
 if (isset($_POST['edit_user'])) {
     // Process registration logic here
     $user_id = $_GET['edit_user'];
@@ -351,8 +347,6 @@ if (isset($_POST['edit_user'])) {
 
 
 //DELETE USER
-
-
 if (isset($_GET['delete_user'])) {
     $user_id = $_GET['delete_user'];
     $sql = "DELETE FROM users WHERE id = '$user_id'";
@@ -369,7 +363,6 @@ if (isset($_GET['delete_user'])) {
 
 
 //ADD COMMENT
-
 if (isset($_POST['add_comment'])) {
     // Process comment logic here
     $user_id =   $_SESSION['user_id'];
@@ -395,8 +388,6 @@ if (isset($_POST['add_comment'])) {
 
 
 //DELETE COMMENT
-
-
 if (isset($_GET['delete_comment'])) {
     $comment_id = $_GET['delete_comment'];
     $sql = "DELETE FROM comments WHERE id = '$comment_id'";
@@ -407,6 +398,22 @@ if (isset($_GET['delete_comment'])) {
         // exit();
     } else {
         $error = "Error deleting comment. Please try again.";
+        // exit();
+    }
+}
+
+
+//APPROVE COMMENT
+if (isset($_GET['approve_comment'])) {
+    $comment_id = $_GET['approve_comment'];
+    $sql = "UPDATE comments SET status = 1 WHERE id = '$comment_id'";
+    $approve_comment_query = mysqli_query($conn, $sql);
+
+    if ($approve_comment_query) {
+        $success = "Comment approved successfully.";
+        // exit();
+    } else {
+        $error = "Error approving comment. Please try again.";
         // exit();
     }
 }

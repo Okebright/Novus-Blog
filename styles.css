@@ -1611,6 +1611,14 @@ tbody tr:hover{ background:rgba(91,79,245,.04); }
   font-size:14px;
 }
 
+/* COMMENTS */
+
+.comment-bd{
+  border-top: 1px solid rgba(15,21,48,.08);
+/* margin-button: 24px; */
+  padding-top: 12px;
+}
+
 /* ---------- Sidebar ---------- */
 .sidebar-home{
   display:flex;

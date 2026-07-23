@@ -1,6 +1,10 @@
 <?php
 session_start();
-require 'pages/header_homepage.php';
+
+if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'user') {
+  header("Location: /novusblog/index.php");
+  exit();
+}require 'pages/header_homepage.php';
 
 if (isset($_GET['category_id']) && !empty($_GET['category_id'])) {
     $category_id = $_GET['category_id'];
