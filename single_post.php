@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['url'] = $_GET['single_post'];
 
 require 'pages/header_homepage.php';
 

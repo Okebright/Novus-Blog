@@ -54,14 +54,24 @@ if (isset($_POST['login'])) {
     if ($user && password_verify($password, $user['password'])) {
         // Login successful
         session_start();
+        $_SESSION['user'] = $user;
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_email'] = $user['email'];
         $_SESSION['user_role'] = $user['role'];
+        $single_post = $_SESSION['url'];
 
+        if (isset($user['role']) && $user['role'] === 'user') {
+            if (isset($_SESSION['url']) && !empty($_SESSION['url'])) {
+                header("Location: /novusblog/single_post.php?single_post=$single_post.php");
+            } else {
+                header("Location: /novusblog/index.php");
+            }
+        } else {
             header("Location: /novusblog/overview.php");
             $success = "Login successful. Redirecting to dashboard...";
             exit();
+        }
     } else {
         // Show error message for invalid credentials
         $error = "Invalid email or password. Please try again.";
