@@ -427,3 +427,147 @@ if (isset($_GET['approve_comment'])) {
         // exit();
     }
 }
+
+
+
+
+//ADD PRODUCTS PROCESS
+if (isset($_POST['add_product'])) {
+
+    //THUMBNAIL UPLOAD PROCESS
+    if (!empty($_FILES['thumbnail']['name']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
+        $target_dir = "uploads/";
+        $baseline = basename($_FILES['thumbnail']['name']);
+        $upload_file = $target_dir . $baseline;
+        $url = $upload_file;
+
+        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $upload_file)) {
+            // File uploaded successfully, proceed with adding the post to the database
+            $post_title = trim($_POST['post_title'] ?? '');
+            $category_id = (int)($_POST['category_id'] ?? 0);
+            $post_status = (int)($_POST['post_status'] ?? 0);
+            $post_content = trim($_POST['post_content'] ?? '');
+            $thumbnail = $url; // Use the uploaded file path as the thumbnail
+
+            // Validate required fields
+            if ($post_title === '' || $category_id <= 0) {
+                $error = "Missing required post fields (title or category).";
+            } else {
+                // Use prepared statement to avoid SQL syntax errors and injection
+                $sql = "INSERT INTO posts (title, category_id, status, content, thumbnail)
+                 VALUES (?, ?, ?, ?, ?)";
+                $add_post_stmt = mysqli_prepare($conn, $sql);
+                if ($add_post_stmt) {
+
+                    //mysqli_query is quick but unsafe 
+                    //if you’re handling user input. 
+                    //Prepared statements are the professional, 
+                    //secure way to interact with databases.
+
+                    mysqli_stmt_bind_param($add_post_stmt, "siiss", $post_title, $category_id, $post_status, $post_content, $thumbnail);
+                    if (mysqli_stmt_execute($add_post_stmt)) {
+                        $success = "Post added successfully.";
+                        header("Location: posts.php");
+                        exit();
+                    } else {
+                        $error = "Error adding post: " . mysqli_stmt_error($add_post_stmt);
+                    }
+                    mysqli_stmt_close($add_post_stmt);
+                } else {
+                    $error = "Database error: " . mysqli_error($conn);
+                }
+            }
+
+            // Keep file upload success message only if no other error
+            if (!isset($error)) {
+                $success = isset($success) ? $success : "File uploaded successfully.";
+            }
+        } else {
+            $error = "Error uploading file. Please check that the uploads folder exists and is writable.";
+        }
+    } else {
+        $error = "No file was uploaded or there was an upload error.";
+    }
+}
+
+//EDIT PRODUCTS PROCESS
+if (isset($_POST['edit_product'])) {
+    $product_id = $_GET['edit_product'];
+
+
+    //THUMBNAIL UPLOAD PROCESS
+    if (!empty($_FILES['thumbnail']['name']) && $_FILES['thumbnail']['error'] === UPLOAD_ERR_OK) {
+        $target_dir = "uploads/";
+        $baseline = basename($_FILES['thumbnail']['name']);
+        $upload_file = $target_dir . $baseline;
+        $url = $upload_file;
+
+        if (move_uploaded_file($_FILES['thumbnail']['tmp_name'], $upload_file)) {
+            // File uploaded successfully, proceed with adding the product to the database
+            $product_name = trim($_POST['product_name'] ?? '');
+            $category_id = (int)($_POST['category_id'] ?? 0);
+            $product_price = (float)($_POST['product_price'] ?? 0);
+            $product_description = trim($_POST['product_description'] ?? '');
+            $thumbnail = $url; // Use the uploaded file path as the thumbnail
+            // Validate required fields
+            if ($product_name === '' || $category_id <= 0) {
+                $error = "Missing required product fields (name or category).";
+            } else {
+                // Use prepared statement to avoid SQL syntax errors and injection
+                $sql = "UPDATE products SET name = ?, category_id = ?, price = ?, description = ?, thumbnail = ? WHERE id = ?";
+                $edit_product_stmt = mysqli_prepare($conn, $sql);
+                if ($edit_product_stmt) {
+
+                    //mysqli_query is quick but unsafe 
+                    //if you’re handling user input. 
+                    //Prepared statements are the professional, 
+                    //secure way to interact with databases.
+
+                    mysqli_stmt_bind_param($edit_product_stmt, "siissi", $product_name, $category_id, $product_price, $product_description, $thumbnail, $product_id);
+                    if (mysqli_stmt_execute($edit_product_stmt)) {
+                        $success = "Product updated successfully.";
+                        header("Location: products.php");
+                        exit();
+                    } else {
+                        $error = "Error updating product: " . mysqli_stmt_error($edit_product_stmt);
+                    }
+                    mysqli_stmt_close($edit_product_stmt);
+                } else {
+                    $error = "Database error: " . mysqli_error($conn);
+                }
+            }
+
+            // Keep file upload success message only if no other error
+            if (!isset($error)) {
+                $success = isset($success) ? $success : "File uploaded successfully.";
+            }
+        } else {
+            $error = "Error uploading file. Please check that the uploads folder exists and is writable.";
+        }
+    } else {
+        $error = "No file was uploaded or there was an upload error.";
+    }
+}
+
+//DELETE PRODUCT
+if (isset($_GET['delete_product'])) {
+    $product_id = $_GET['delete_product'];
+    $sql = "DELETE FROM products WHERE id = '$product_id'";
+    $delete_product_query = mysqli_query($conn, $sql);
+
+    if ($delete_product_query) {
+        $success = "Product deleted successfully.";
+        // exit();
+    } else {
+        $error = "Error deleting product. Please try again.";
+        // exit();
+    }
+}
+
+
+
+
+
+
+
+

@@ -14,8 +14,8 @@ require 'pages/header_admin.php';
   <nav class="sidebar">
     <h2>Novus Admin</h2>
     <a href="overview.php" class="nav-item ">Overview</a>
-    <a href="posts.php" class="nav-item active">Posts</a>
-    <a href="products.php" class="nav-item">Products</a>
+    <a href="posts.php" class="nav-item">Posts</a>
+    <a href="products.php" class="nav-item active">Products</a>
     <a href="comments.php" class="nav-item">Comments</a>
     <a href="categories.php" class="nav-item">Categories</a>
     <a href="users.php" class="nav-item">Users</a>
@@ -30,7 +30,7 @@ require 'pages/header_admin.php';
     <section class="page ">
       <div class="panel">
         <div class="panel-header">
-          <h1>Add Post</h1>
+          <h1>Add Product</h1>
 
         </div>
       </div>
@@ -62,8 +62,8 @@ require 'pages/header_admin.php';
 
           <form action="" method="POST" enctype="multipart/form-data">
             <label>
-              Post Title
-              <input type="text" name="post_title" placeholder=" Post Title" required>
+              Product Title
+              <input type="text" name="product_title" placeholder=" Product Title" required>
             </label>
 
             <div class="row">
@@ -89,7 +89,7 @@ require 'pages/header_admin.php';
               <div class="col-6">`
                 <label>
                   Status
-                  <select name="post_status" id="">
+                  <select name="product_status" id="">
                     <option value="0">Draft</option>
                     <option value="1">Published</option>
                   </select>
@@ -100,14 +100,19 @@ require 'pages/header_admin.php';
             </div>
 
             <label>
-              Post Content
-              <textarea name="post_content" id="" placeholder="Post Content"></textarea>
+              Price
+              <input type="number" name="product_price" placeholder=" Product Price" required>
             </label>
-                     <label>
-               Thumbnail 
-              <input type="file" name="thumbnail" placeholder=" Thumbnail " required">
+
+            <label>
+              Product Content
+              <textarea name="product_content" id="" placeholder="Product Content"></textarea>
             </label>
-            <button type="submit" class="btn-primary" name="add_post" value="add_post">Submit </button>
+            <label>
+              image
+              <input type="file" name="image" placeholder=" image " required">
+            </label>
+            <button type="submit" class="btn-primary" name="add_product" value="add_product">Submit </button>
           </form>
         </div>
 

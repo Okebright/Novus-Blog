@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'user') {
@@ -6,7 +7,24 @@ if (isset($_SESSION['user_role']) && $_SESSION['user_role'] === 'user') {
   exit();
 }
 require 'pages/header_admin.php';
+
+
+if (isset($_GET['edit_product']) && !empty($_GET['edit_product'])) {
+  $product_id = $_GET['edit_product'];
+
+  // Fetch the product details from the database
+  $sql = "SELECT * FROM products WHERE id = '$product_id'";
+  $query = mysqli_query($conn, $sql);
+  $product = mysqli_fetch_assoc($query);
+} else {
+  // Redirect to products.php if no product ID is provided
+  header("Location: products.php");
+  exit();
+}
 ?>
+
+
+
 
 
 <div class="layout">
@@ -14,8 +32,8 @@ require 'pages/header_admin.php';
   <nav class="sidebar">
     <h2>Novus Admin</h2>
     <a href="overview.php" class="nav-item ">Overview</a>
-    <a href="posts.php" class="nav-item active">Posts</a>
-    <a href="products.php" class="nav-item">Products</a>
+    <a href="posts.php" class="nav-item">Posts</a>
+    <a href="products.php" class="nav-item active">Products</a>
     <a href="comments.php" class="nav-item">Comments</a>
     <a href="categories.php" class="nav-item">Categories</a>
     <a href="users.php" class="nav-item">Users</a>
@@ -30,7 +48,7 @@ require 'pages/header_admin.php';
     <section class="page ">
       <div class="panel">
         <div class="panel-header">
-          <h1>Add Post</h1>
+          <h1>Edit Product</h1>
 
         </div>
       </div>
@@ -62,8 +80,8 @@ require 'pages/header_admin.php';
 
           <form action="" method="POST" enctype="multipart/form-data">
             <label>
-              Post Title
-              <input type="text" name="post_title" placeholder=" Post Title" required>
+              Product Title
+              <input type="text" name="product_title" placeholder=" Product Title" value="<?php echo $product['title']; ?>" required>
             </label>
 
             <div class="row">
@@ -79,7 +97,7 @@ require 'pages/header_admin.php';
                     $query = mysqli_query($conn, $sql);
 
                     while ($category = mysqli_fetch_assoc($query)) {
-                      echo '<option value="' . $category['id'] . '">' . $category['name'] . '</option>';
+                      echo '<option value="' . $category['id'] . '" ' . (($category['id'] == $product['category_id']) ? 'selected' : '') . '>' . $category['name'] . '</option>';
                     }
                     ?>
                   </select>
@@ -89,9 +107,9 @@ require 'pages/header_admin.php';
               <div class="col-6">`
                 <label>
                   Status
-                  <select name="post_status" id="">
-                    <option value="0">Draft</option>
-                    <option value="1">Published</option>
+                  <select name="product_status" id="">
+                    <option value="0" <?php echo ($product['status'] == 0) ? 'selected' : ''; ?>>Draft</option>
+                    <option value="1" <?php echo ($product['status'] == 1) ? 'selected' : ''; ?>>Published</option>
                   </select>
                 </label>
               </div>
@@ -99,15 +117,23 @@ require 'pages/header_admin.php';
 
             </div>
 
+                   <label>
+              Price
+              <input type="number" name="product_price" placeholder=" Product Price" value="<?php echo $product['price']; ?>" required>
+            </label>
+
             <label>
-              Post Content
-              <textarea name="post_content" id="" placeholder="Post Content"></textarea>
+              Product Content
+              <textarea name="product_content" id="" placeholder="Product Content" value=""><?php echo $product['content']; ?></textarea>
             </label>
-                     <label>
-               Thumbnail 
-              <input type="file" name="thumbnail" placeholder=" Thumbnail " required">
+            <label>
+              image
+              <input type="file" name="image" placeholder=" image " value="<?php echo $product['image']; ?>" required">
+                     <div class="post-thumb">
+                    <img src="<?php echo $product['image']; ?>" alt="Product image">
+                  </div>
             </label>
-            <button type="submit" class="btn-primary" name="add_post" value="add_post">Submit </button>
+            <button type="submit" class="btn-primary" name="edit_product" value="edit_product">Submit </button>
           </form>
         </div>
 

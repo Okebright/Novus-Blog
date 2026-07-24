@@ -13,8 +13,8 @@ require 'pages/header_admin.php';
   <nav class="sidebar">
     <h2>Novus Admin</h2>
     <a href="overview.php" class="nav-item ">Overview</a>
-    <a href="posts.php" class="nav-item active">Posts</a>
-    <a href="products.php" class="nav-item">Products</a>
+    <a href="posts.php" class="nav-item">Posts</a>
+    <a href="products.php" class="nav-item active">Products</a>
     <a href="comments.php" class="nav-item">Comments</a>
     <a href="categories.php" class="nav-item">Categories</a>
     <a href="users.php" class="nav-item">Users</a>
@@ -26,17 +26,17 @@ require 'pages/header_admin.php';
     <section class="page ">
       <div class="panel">
         <div class="panel-header">
-          <h1>Posts</h1>
-          <a href="add_post.php">
-            <button class="btn-outline">New Post</button>
+          <h1>Products</h1>
+          <a href="add_product.php">
+            <button class="btn-outline">New Product</button>
           </a>
         </div>
       </div>
 
       <div class="panel">
         <div class="section-row">
-          <h3>All Posts</h3>
-          <a href="add_post.php" class="view-all">Add New</a>
+          <h3>All Products</h3>
+          <a href="add_product.php" class="view-all">Add New</a>
         </div>
 
 
@@ -64,6 +64,7 @@ require 'pages/header_admin.php';
               <th>S/N</th>
               <th>Image</th>
               <th>Title</th>
+              <th>Price</th>
               <th>Status</th>
               <th>Actions</th>
             </tr>
@@ -73,39 +74,40 @@ require 'pages/header_admin.php';
             <!-- COLLECT CATEGORIES FROM DATABASE -->
             <?php
             $row_numbering = 1; // Initialize a variable to keep track of the row number
-            $sql = "SELECT * FROM posts";
+            $sql = "SELECT * FROM products";
             $query = mysqli_query($conn, $sql);
-            while ($post = mysqli_fetch_assoc($query)) { ?>
+            while ($product = mysqli_fetch_assoc($query)) { ?>
 
 
               <tr>
                 <td><?php echo $row_numbering++; ?></td>
                 <td class="post-thumb-cell">
                   <div class="post-thumb">
-                    <img src="<?php echo $post['thumbnail']; ?>" alt="Post thumbnail">
+                    <img src="<?php echo $product['image']; ?>" alt="Post thumbnail">
                   </div>
                 </td>
                 <td>
-                  <div class="post-title"><?php echo $post['title']; ?></div>
+                  <div class="post-title"><?php echo $product['title']; ?></div>
                   <div class="post-sub"><?php
-                                        if ($post['status'] == 1) {
+                                        if ($product['status'] == 1) {
                                           echo "Published";
                                         } else {
                                           echo "Draft";
                                         }
-                                        ?> on <?php echo $post['timestamp'];
+                                        ?> on <?php echo $product['timestamp'];
                                               ?></div>
                 </td>
+                <td>₦<?php echo number_format($product['price'], 2); ?></td>
                 <td><span class="badge published"><?php
-                                                  if ($post['status'] == 1) {
+                                                  if ($product['status'] == 1) {
                                                     echo "Published";
                                                   } else {
                                                     echo "Draft";
                                                   }
                                                   ?></span></td>
                 <td>
-                  <a href="edit_post.php?edit_post=<?php echo $post['id']; ?>" class="action-link edit">Edit</a>
-                  <a href="posts.php?delete_post=<?php echo $post['id']; ?>">
+                  <a href="edit_product.php?edit_product=<?php echo $product['id']; ?>" class="action-link edit">Edit</a>
+                  <a href="products.php?delete_product=<?php echo $product['id']; ?>">
                     <button class="action-link delete">Delete</button>
 
                   </a>

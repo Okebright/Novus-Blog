@@ -16,6 +16,7 @@ require 'pages/header_admin.php';
     <h2>Novus Admin</h2>
     <a href="overview.php" class="nav-item ">Overview</a>
     <a href="posts.php" class="nav-item">Posts</a>
+    <a href="products.php" class="nav-item">Products</a>
     <a href="comments.php" class="nav-item">Comments</a>
     <a href="categories.php" class="nav-item active">Categories</a>
     <a href="users.php" class="nav-item">Users</a>
